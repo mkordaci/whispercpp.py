@@ -17,8 +17,8 @@ cimport numpy as cnp
 
 cdef int SAMPLE_RATE = 16000
 cdef char* TEST_FILE = 'test.wav'
-cdef char* DEFAULT_MODEL = 'tiny'
-cdef char* LANGUAGE = b'fr'
+cdef char* DEFAULT_MODEL = 'medium'
+cdef char* LANGUAGE = b'en'
 cdef int N_THREADS = os.cpu_count()
 
 MODELS = {
@@ -90,7 +90,7 @@ cdef class Whisper:
     cdef whisper_full_params params
 
     def __init__(self, model=DEFAULT_MODEL, pb=None):
-        model_fullname = f'model_ggml_{model}.bin'.encode('utf8')
+        model_fullname = f'ggml-medium.bin'.encode('utf8')
         download_model(model_fullname)
         cdef bytes model_b = MODELS_DIR.encode('utf8')  + b'/' + model_fullname
         self.ctx = whisper_init(model_b)
