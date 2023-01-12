@@ -22,11 +22,11 @@ cdef char* LANGUAGE = b'en'
 cdef int N_THREADS = os.cpu_count()
 
 MODELS = {
-    'ggml-tiny.bin': 'https://huggingface.co/datasets/ggerganov/whisper.cpp/resolve/main/ggml-tiny.bin',
-    'ggml-base.bin': 'https://huggingface.co/datasets/ggerganov/whisper.cpp/resolve/main/ggml-base.bin',
-    'ggml-small.bin': 'https://huggingface.co/datasets/ggerganov/whisper.cpp/resolve/main/ggml-small.bin',
-    'ggml-medium.bin': 'https://huggingface.co/datasets/ggerganov/whisper.cpp/resolve/main/ggml-medium.bin',
-    'ggml-large.bin': 'https://huggingface.co/datasets/ggerganov/whisper.cpp/resolve/main/ggml-large.bin',
+    'model_ggml_tiny.bin': 'https://huggingface.co/datasets/ggerganov/whisper.cpp/resolve/main/ggml-tiny.bin',
+    'model_ggml_base.bin': 'https://huggingface.co/datasets/ggerganov/whisper.cpp/resolve/main/ggml-base.bin',
+    'model_ggml_small.bin': 'https://huggingface.co/datasets/ggerganov/whisper.cpp/resolve/main/ggml-small.bin',
+    'model_ggml_medium.bin': 'https://huggingface.co/datasets/ggerganov/whisper.cpp/resolve/main/ggml-medium.bin',
+    'model_ggml_large.bin': 'https://huggingface.co/datasets/ggerganov/whisper.cpp/resolve/main/ggml-large.bin',
 }
 
 def model_exists(model):
@@ -90,7 +90,7 @@ cdef class Whisper:
     cdef whisper_full_params params
 
     def __init__(self, model=DEFAULT_MODEL, pb=None):
-        model_fullname = f'ggml-medium.bin'.encode('utf8')
+        model_fullname = f'model_ggml_{model}.bin'.encode('utf8')
         download_model(model_fullname)
         cdef bytes model_b = MODELS_DIR.encode('utf8')  + b'/' + model_fullname
         self.ctx = whisper_init(model_b)
