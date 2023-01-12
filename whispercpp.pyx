@@ -104,7 +104,7 @@ cdef class Whisper:
         print("Loading data..")
         cdef audio_data data = load_audio(<bytes>filename)
         print("Transcribing..")
-        return whisper_full(self.ctx, self.params, data.frames, data.n_frames)
+        return whisper_full_parallel(self.ctx, self.params, data.frames, data.n_frames, 32)
     
     def extract_text(self, int res):
         print("Extracting text...")
